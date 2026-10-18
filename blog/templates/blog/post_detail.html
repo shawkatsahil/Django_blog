@@ -9,6 +9,12 @@
     <h1>{{ post.title }}</h1>
     <p>By {{ post.author.username }} on {{ post.created_at|date:"d M Y" }}</p>
     <hr>
+    {% if user == post.author %}
+    <p>
+        <a href="{% url 'post_update' post.pk %}">Edit</a> |
+        <a href="{% url 'post_delete' post.pk %}">Delete</a>
+    </p>
+{% endif %}
     <p>{{ post.content|linebreaks }}</p>
 </body>
 </html>

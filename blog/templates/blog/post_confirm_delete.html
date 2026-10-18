@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Post</title>
+</head>
+<body>
+    <h1>Delete "{{ post.title }}"?</h1>
+    <p>This cannot be undone.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'post_detail' post.pk %}">Cancel</a>
+    </form>
+</body>
+</html>
