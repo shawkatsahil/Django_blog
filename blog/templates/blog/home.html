@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>My Blog</h1>
-    
+
     {% if user.is_authenticated %}
     <p>Hello, {{ user.username }}!
     <form method="post" action="{% url 'logout' %}" style="display:inline;">
@@ -14,7 +14,7 @@
     </form>
     </p>
 {% else %}
-    <p><a href="{% url 'login' %}">Login</a></p>
+    <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign up</a></p>
 {% endif %}
 
     {% for post in posts %}
