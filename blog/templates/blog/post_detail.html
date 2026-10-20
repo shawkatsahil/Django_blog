@@ -9,11 +9,28 @@
     <h1>{{ post.title }}</h1>
     <p>By {{ post.author.username }} on {{ post.created_at|date:"d M Y" }}</p>
     <hr>
-    {% if user == post.author %}
-    <p>
-        <a href="{% url 'post_update' post.pk %}">Edit</a> |
-        <a href="{% url 'post_delete' post.pk %}">Delete</a>
-    </p>
+ <hr>
+<h3>Comments ({{ post.comments.count }})</h3>
+
+{% for comment in post.comments.all %}
+    <div>
+        <strong>{{ comment.author.username }}</strong>
+        <small>{{ comment.created_at|date:"d M Y, H:i" }}</small>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments yet. Be the first!</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h4>Add a comment</h4>
+    <form method="post" action="{% url 'add_comment' post.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post comment</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Login</a> to leave a comment.</p>
 {% endif %}
     <p>{{ post.content|linebreaks }}</p>
 </body>
