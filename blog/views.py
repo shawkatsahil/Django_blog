@@ -67,3 +67,4 @@ def add_comment(request, pk):
             comment.author = request.user
             comment.save()
     return redirect('post_detail', pk=post.pk)
+
